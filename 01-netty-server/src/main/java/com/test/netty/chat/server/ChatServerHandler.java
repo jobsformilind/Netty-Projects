@@ -13,19 +13,19 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
 	private static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
-	protected void channelRead0(ChannelHandlerContext channelHandlerContext, String msg) throws Exception {
-		System.out.println("Message received：" + msg);
+	protected void channelRead0(ChannelHandlerContext context, String msg) throws Exception {
+		System.out.println("Message received: " + msg);
 		if ("bye".equals(msg)) {
-			channelHandlerContext.close();
+			context.close();
 		}
 		Date date = new Date();
-		channelHandlerContext.writeAndFlush(date + "\n");
+		context.writeAndFlush(date + "\n");
 	}
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		System.out.println("Channel Active：" + ctx.channel().remoteAddress());
-		ctx.writeAndFlush("SERVER：" + InetAddress.getLocalHost().getHostName() + "How are you！\n");
+		System.out.println("Channel Active: " + ctx.channel().remoteAddress());
+		ctx.writeAndFlush("SERVER: " + InetAddress.getLocalHost().getHostName() + "How are you? \n");
 		super.channelActive(ctx);
 	}
 

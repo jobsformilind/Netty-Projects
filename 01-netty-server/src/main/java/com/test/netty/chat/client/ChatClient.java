@@ -28,14 +28,16 @@ public class ChatClient {
 	public void start() throws Exception {
 		try {
 			System.out.println("Starting Chat Client...");
-			Bootstrap bootstrap = new Bootstrap().group(group).channel(NioSocketChannel.class)
+			Bootstrap bootstrap = new Bootstrap()
+					.group(group)
+					.channel(NioSocketChannel.class)
 					.handler(new ChatClientInitializer());
 			Channel channel = bootstrap.connect(Constants.SERVER_HOST, Constants.SERVER_PORT).sync().channel();
 			System.out.println("Chat Client started.");
 
 			scanner = new Scanner(System.in);
 			while (true) {
-				channel.write(scanner.nextLine() + "\r\n");
+				channel.writeAndFlush(scanner.nextLine() + "\n");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

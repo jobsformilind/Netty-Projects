@@ -26,8 +26,10 @@ public class ChatServer {
 	public void start() throws Exception {
 		try {
 			System.out.println("Starting chat server...");
-			ServerBootstrap bootstrap = new ServerBootstrap().group(bossGroup, workGroup)
-					.channel(NioServerSocketChannel.class).childHandler(new ChatServerInitializer());
+			ServerBootstrap bootstrap = new ServerBootstrap()
+					.group(bossGroup, workGroup)
+					.channel(NioServerSocketChannel.class)
+					.childHandler(new ChatServerInitializer());
 			ChannelFuture future = bootstrap.bind(Constants.SERVER_PORT).sync();
 			System.out.println("Chat server started.");
 			future.channel().closeFuture().sync();
