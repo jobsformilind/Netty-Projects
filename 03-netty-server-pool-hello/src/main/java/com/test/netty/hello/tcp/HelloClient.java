@@ -68,6 +68,7 @@ public class HelloClient {
 		return future;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) throws Exception {
 
 		HelloClient client = new HelloClient();
@@ -79,7 +80,7 @@ public class HelloClient {
 		IntStream.range(0, iterations).forEach(iteration -> {
 			System.out.println("---------------------Iteration ->" + iteration + "---------------------");
 			System.out.println("Asynchronously sending " + (messages / 1000) + "K messages.");
-			CompletableFuture[] futures = new CompletableFuture[messages];
+			CompletableFuture<String>[] futures = new CompletableFuture[messages];
 
 			long start = System.currentTimeMillis();
 
